@@ -27,7 +27,7 @@ import {
   slas,
 } from "@/lib/data";
 
-export default function DashboardPage() {
+export default function HomePage() {
   const highRiskAssessments = assessments.filter((a) => a.isHighRisk).length;
   const openActionItems = actionItems.filter((a) => a.status !== "Closed").length;
   const slaBreaches = slas.filter((s) => s.status === "Breached").length;
