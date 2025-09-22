@@ -25,12 +25,13 @@ export async function assessOutsourcingRiskAction(
     // This path is taken when the agent does NOT use tools.
     return { result };
   } catch (e: any) {
-    console.error(e);
-    // Genkit flows with tools can 'throw' an object containing tool outputs.
-    // We check for this case to handle the results of the agent's actions.
-    const toolOutputs = e.toolOutputs;
-    const finalOutput = e.output;
+    console.error("Caught error in server action:", e);
 
+    // Genkit flows with tools can 'throw' an object containing the final output and tool outputs.
+    // We check for this case to handle the results of the agent's actions.
+    const finalOutput = e.output;
+    const toolOutputs = e.toolOutputs;
+    
     if (finalOutput && toolOutputs && Array.isArray(toolOutputs)) {
         let newActionItem: ActionItem | undefined = undefined;
         let newDocument: Document | undefined = undefined;
@@ -38,9 +39,11 @@ export async function assessOutsourcingRiskAction(
         for (const output of toolOutputs) {
             if (output.toolName === 'createActionItemTool') {
                 newActionItem = output.output as ActionItem;
+                console.log('Found new action item from tool:', newActionItem);
             }
             if (output.toolName === 'generateReviewDocumentTool') {
                 newDocument = output.output as Document;
+                console.log('Found new document from tool:', newDocument);
             }
         }
 
@@ -49,6 +52,7 @@ export async function assessOutsourcingRiskAction(
             return { result: finalOutput, newActionItem, newDocument };
         }
     }
+    
     return { error: "An unexpected error occurred while assessing the risk. Please try again later." };
   }
 }
