@@ -57,7 +57,7 @@ export default function AssessmentPage() {
     },
     {
       icon: Eye,
-      title: "4. Review Agent's Work",
+      title: "4. Review Agent's Work and Action Items",
       description: "The agent's complete analysis and all automated actions are presented for your review. Your role is to simply oversee the completed work.",
       content: isPending && !state.result ? <LoadingSpinner /> : (state.result ? <ReviewAndNextSteps result={state.result} newActionItem={state.newActionItem} newDocument={state.newDocument} />: null),
       isConnector: false,
@@ -71,7 +71,7 @@ export default function AssessmentPage() {
           Autonomous Risk Assessment Agent
         </h1>
       </div>
-      <p className="text-muted-foreground w-full">
+      <p className="text-muted-foreground">
         Delegate your complex outsourcing risk assessments to an autonomous AI agent. Simply provide the details of an outsourcing arrangement, and the agent will execute a comprehensive, multi-step workflow. It analyzes the use case, quantifies risks, determines the necessary level of review, and takes proactive compliance actions—all while providing a transparent audit trail for executive oversight. This is agentic AI in action: from analysis to action, completely autonomously.
       </p>
 
