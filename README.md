@@ -15,7 +15,7 @@ This is a Next.js application built in Firebase Studio that demonstrates the pow
 *   **Framework:** [Next.js](https://nextjs.org/) with App Router
 *   **AI/Generative:** [Genkit](https://firebase.google.com/docs/genkit) (Google's generative AI toolkit) with Gemini models
 *   **UI:** [ShadCN UI](https://ui.shadcn.com/) & [Tailwind CSS](https://tailwindcss.com/)
-*   **Hosting:** Firebase App Hosting
+*   **Deployment:** [Netlify](https://www.netlify.com/)
 
 ## Getting Started
 
@@ -62,6 +62,23 @@ To run this project locally, you will need to have Node.js and npm installed.
     npm run genkit:watch
     ```
     This will start the AI flows and make them available to the application. It will also auto-reload on changes.
+
+## Deployment to Netlify
+
+This project is configured for easy deployment to Netlify.
+
+1.  **Push your code to a Git provider** (GitHub, GitLab, Bitbucket).
+2.  **Create a new site on Netlify** by importing your Git repository.
+3.  **Configure Build Settings:** Netlify should automatically detect that this is a Next.js project and use the settings from the `netlify.toml` file.
+    *   **Build command:** `npm run build`
+    *   **Publish directory:** `.next`
+4.  **Add Environment Variable:** This is the most important step for the AI features to work.
+    *   Go to your site's dashboard on Netlify.
+    *   Navigate to **Site configuration > Environment variables**.
+    *   Click **Add a variable**.
+    *   For the **Key**, enter `GEMINI_API_KEY`.
+    *   For the **Value**, paste your actual Gemini API key.
+5.  **Deploy:** Trigger a new deployment from the Netlify UI. Your site will be built and deployed with the AI functionality configured.
 
 ## License
 
