@@ -10,6 +10,7 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import { complianceActionsTool } from '../tools/compliance-actions';
 
 const AssessOutsourcingRiskInputSchema = z.object({
   useCaseDetails: z
@@ -35,6 +36,7 @@ const AssessOutsourcingRiskOutputSchema = z.object({
     .string()
     .describe('Recommended next steps based on the risk assessment, such as further review, mitigation strategies, or escalation.'),
   isHighRisk: z.boolean().describe('Whether this outsourcing arrangement is flagged as high risk'),
+  agentActions: z.array(z.string()).optional().describe('A list of actions the agent performed automatically.'),
 });
 export type AssessOutsourcingRiskOutput = z.infer<typeof AssessOutsourcingRiskOutputSchema>;
 
@@ -46,9 +48,10 @@ const prompt = ai.definePrompt({
   name: 'assessOutsourcingRiskPrompt',
   input: {schema: AssessOutsourcingRiskInputSchema},
   output: {schema: AssessOutsourcingRiskOutputSchema},
+  tools: [complianceActionsTool],
   prompt: `You are an expert in outsourcing risk and compliance management. Analyze the provided outsourcing use case details to determine if it qualifies for the simplified outsourcing determination process and perform an AI-driven risk assessment considering operational, compliance, data, and regulatory risks.
 
-  Provide a determination result, overall risk score, risk breakdown, recommended next steps, and a boolean to flag high-risk cases.
+  Provide a determination result, overall risk score, risk breakdown, and recommended next steps.
 
   Use Case Details: {{{useCaseDetails}}}
 
@@ -58,9 +61,13 @@ const prompt = ai.definePrompt({
 
   -Simplified: Low complexity, minimal data involved, well-established processes, and low regulatory impact.
   -Full Review Required: High complexity, significant data involved, novel processes, and high regulatory impact.
-
-  Ensure to set the isHighRisk boolean to true if any of the risk scores are above 75 or if the determinationResult is "Full Review Required", otherwise it should be set to false.
+  
   Set reasonable values for the other fields.
+
+  If the risk score is 75 or above, or the determination result is "Full Review Required", then set the isHighRisk boolean to true.
+  If isHighRisk is true, you MUST use the complianceActionsTool to create a high-priority action item for the compliance team and generate a draft formal review document.
+  
+  Record the actions you've taken in the agentActions field. For example: "Created high-priority action item" or "Generated formal review document".
 
   Ensure that the output is valid JSON matching the schema.`,
 });

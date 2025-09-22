@@ -4,7 +4,7 @@ import type { AssessOutsourcingRiskOutput } from "@/ai/flows/assess-outsourcing-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList } from "recharts";
-import { AlertTriangle, CheckCircle, FileText, Sparkles } from "lucide-react";
+import { AlertTriangle, CheckCircle, FileText, Sparkles, Bot } from "lucide-react";
 
 interface AssessmentResultsProps {
   result?: AssessOutsourcingRiskOutput;
@@ -92,6 +92,28 @@ export function AssessmentResults({ result }: AssessmentResultsProps) {
           <p className="text-sm text-muted-foreground">{result.recommendedNextSteps}</p>
         </CardContent>
       </Card>
+
+      {result.agentActions && result.agentActions.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-sm font-medium flex items-center gap-2">
+              <Bot className="h-4 w-4" />
+              Automated Agent Actions
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              {result.agentActions.map((action, index) => (
+                <li key={index} className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-green-600" />
+                  <span>{action}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="text-xs mt-2">These items have been added to the Action Tracker and Document Hub.</p>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }
