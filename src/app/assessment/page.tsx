@@ -26,15 +26,15 @@ export default function AssessmentPage() {
         </h1>
       </div>
       <p className="text-muted-foreground max-w-4xl">
-        This page demonstrates an AI agent that automates the complex process of outsourcing risk assessment. By simply providing the use case details, you activate an autonomous workflow. The agent analyzes the information, quantifies various risk factors, determines the required level of review, and if necessary, automatically creates action items and generates draft documentation for the compliance team. This end-to-end process is designed to be transparent and efficient for executive oversight.
+        Delegate your complex outsourcing risk assessments to an autonomous AI agent. Simply provide the details of an outsourcing arrangement, and the agent will execute a comprehensive, multi-step workflow. It analyzes the use case, quantifies risks, determines the necessary level of review, and takes proactive compliance actions—all while providing a transparent audit trail for executive oversight. This is agentic AI in action: from analysis to action, completely autonomously.
       </p>
 
       <div className="grid gap-8 lg:grid-cols-2 mt-6">
         <Card>
           <CardHeader>
-            <CardTitle>1. Initiate Agent Task</CardTitle>
+            <CardTitle>1. Delegate Task to Agent</CardTitle>
             <CardDescription>
-              Provide the agent with the details of the outsourcing arrangement to begin the assessment.
+              Provide the agent with the details of the outsourcing arrangement. This is the only manual step in the process.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -44,9 +44,9 @@ export default function AssessmentPage() {
 
         <Card className="flex flex-col">
           <CardHeader>
-            <CardTitle>2. Review Agent's Findings & Actions</CardTitle>
+            <CardTitle>2. Review Agent's Work</CardTitle>
             <CardDescription>
-              The agent will analyze the details, generate a risk report, and take automated next steps.
+              The agent autonomously performs the analysis and takes the required actions. Your role is simply to review the completed work.
             </CardDescription>
           </CardHeader>
           <CardContent className="flex-1 flex items-center justify-center">
