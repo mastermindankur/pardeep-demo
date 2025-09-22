@@ -8,11 +8,14 @@ import { AssessmentResults } from "./components/assessment-results";
 import { assessOutsourcingRiskAction } from "./actions";
 import type { AssessOutsourcingRiskOutput } from "@/ai/flows/assess-outsourcing-risk";
 import { User, Bot, ClipboardCheck, Eye } from "lucide-react";
+import type { ActionItem, Document } from "@/lib/types";
 
 type State = {
   result?: AssessOutsourcingRiskOutput;
   error?: string;
   message?: string;
+  newActionItem?: ActionItem;
+  newDocument?: Document;
 };
 
 const initialState: State = {};
@@ -53,8 +56,8 @@ export default function AssessmentPage() {
     {
       icon: Eye,
       title: "2. Review Agent's Work",
-      description: "The agent's complete analysis and all automated actions are presented for your review. Your role is simply to oversee the completed work.",
-      content: <AssessmentResults result={state?.result} isPending={isPending} />,
+      description: "The agent's complete analysis and all automated actions are presented for your review. Your role is to simply oversee the completed work.",
+      content: <AssessmentResults result={state?.result} isPending={isPending} newActionItem={state?.newActionItem} newDocument={state?.newDocument} />,
       isConnector: false,
     },
   ];

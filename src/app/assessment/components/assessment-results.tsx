@@ -5,14 +5,19 @@ import type { AssessOutsourcingRiskOutput } from "@/ai/flows/assess-outsourcing-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList } from "recharts";
-import { AlertTriangle, CheckCircle, FileText, Sparkles, Bot } from "lucide-react";
+import { AlertTriangle, CheckCircle, FileText, Sparkles, Bot, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import type { ActionItem, Document } from "@/lib/types";
 
 interface AssessmentResultsProps {
   result?: AssessOutsourcingRiskOutput;
   isPending: boolean;
+  newActionItem?: ActionItem;
+  newDocument?: Document;
 }
 
-export function AssessmentResults({ result, isPending }: AssessmentResultsProps) {
+export function AssessmentResults({ result, isPending, newActionItem, newDocument }: AssessmentResultsProps) {
   if (isPending && !result) {
     return (
       <div className="flex justify-center items-center p-4">
@@ -38,6 +43,9 @@ export function AssessmentResults({ result, isPending }: AssessmentResultsProps)
   ];
 
   const isFullReview = result.determinationResult === 'Full Review Required';
+
+  const actionItemQuery = newActionItem ? `?newActionItem=${encodeURIComponent(JSON.stringify(newActionItem))}` : '';
+  const documentQuery = newDocument ? `?newDocument=${encodeURIComponent(JSON.stringify(newDocument))}` : '';
 
   return (
     <div className="w-full space-y-4 animate-in fade-in-50">
@@ -120,7 +128,22 @@ export function AssessmentResults({ result, isPending }: AssessmentResultsProps)
                 </li>
               ))}
             </ul>
-            <p className="text-xs mt-2">These items have been added to the Action Tracker and Document Hub.</p>
+            <div className="text-sm mt-4 space-y-2 flex flex-col items-start">
+                {newActionItem && (
+                    <Button asChild variant="link" className="p-0 h-auto">
+                        <Link href={`/actions${actionItemQuery}`}>
+                            View new item in Action Tracker <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                    </Button>
+                )}
+                {newDocument && (
+                    <Button asChild variant="link" className="p-0 h-auto">
+                        <Link href={`/documents${documentQuery}`}>
+                            View new file in Document Hub <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                    </Button>
+                )}
+            </div>
           </CardContent>
         </Card>
       )}

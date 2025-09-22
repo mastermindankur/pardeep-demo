@@ -8,9 +8,27 @@ import {
 import { Button } from "@/components/ui/button";
 import { UploadCloud } from "lucide-react";
 import { DocumentsTable } from "./components/documents-table";
-import { documents } from "@/lib/data";
+import { documents as initialDocuments } from "@/lib/data";
 
-export default function DocumentsPage() {
+export default function DocumentsPage({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  let documents = [...initialDocuments];
+  if (searchParams?.newDocument) {
+    try {
+      const newDoc = JSON.parse(
+        Array.isArray(searchParams.newDocument)
+          ? searchParams.newDocument[0]
+          : searchParams.newDocument
+      );
+      documents.unshift(newDoc);
+    } catch (e) {
+      console.error("Failed to parse new document from URL", e);
+    }
+  }
+
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
       <div className="flex items-center justify-between space-y-2">

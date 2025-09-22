@@ -6,9 +6,26 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ActionsTable } from "./components/actions-table";
-import { actionItems } from "@/lib/data";
+import { actionItems as initialActionItems } from "@/lib/data";
 
-export default function ActionsPage() {
+export default function ActionsPage({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  let actionItems = [...initialActionItems];
+  if (searchParams?.newActionItem) {
+    try {
+      const newItem = JSON.parse(
+        Array.isArray(searchParams.newActionItem)
+          ? searchParams.newActionItem[0]
+          : searchParams.newActionItem
+      );
+      actionItems.unshift(newItem);
+    } catch (e) {
+      console.error("Failed to parse new action item from URL", e);
+    }
+  }
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
       <div className="flex items-center justify-between space-y-2">
