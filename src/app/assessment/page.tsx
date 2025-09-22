@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { AssessmentForm } from "./components/assessment-form";
 import { AssessmentResults } from "./components/assessment-results";
@@ -16,7 +16,7 @@ type State = {
 const initialState: State = {};
 
 export default function AssessmentPage() {
-  const [state, formAction] = useFormState(assessOutsourcingRiskAction, initialState);
+  const [state, formAction] = useActionState(assessOutsourcingRiskAction, initialState);
 
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
