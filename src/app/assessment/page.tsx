@@ -36,7 +36,7 @@ export default function AssessmentPage() {
   const workflowSteps = [
     {
       icon: User,
-      title: "1. Risk Assessment Agent Delegate Task to Agent",
+      title: "1. Risk Assessment Agent",
       description: "Provide the agent with the details of the outsourcing arrangement. This is the only manual step in the process.",
       content: <AssessmentForm formAction={formAction} error={state?.error} isPending={isPending} />,
       isConnector: true,
@@ -93,7 +93,7 @@ export default function AssessmentPage() {
               <div className="absolute left-0 top-0 flex h-11 w-11 items-center justify-center rounded-full bg-card border">
                 <step.icon className="h-6 w-6 text-primary" />
               </div>
-              <Card className="ml-4 border">
+              <Card className="ml-4 border-2">
                 <CardHeader>
                   <CardTitle>{step.title}</CardTitle>
                   <CardDescription>{step.description}</CardDescription>
