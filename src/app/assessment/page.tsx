@@ -9,7 +9,7 @@ import { AgentActionResults } from "./components/agent-action-results";
 import { ReviewAndNextSteps } from "./components/review-next-steps";
 import { assessOutsourcingRiskAction } from "./actions";
 import type { AssessOutsourcingRiskOutput } from "@/ai/flows/assess-outsourcing-risk";
-import { User, Bot, Eye } from "lucide-react";
+import { User, Bot, Eye, ClipboardCheck } from "lucide-react";
 import type { ActionItem, Document } from "@/lib/types";
 
 type State = {
@@ -59,8 +59,17 @@ export default function AssessmentPage() {
             <ReviewAndNextSteps result={state.result} newActionItem={state.newActionItem} newDocument={state.newDocument} />
         </div>
       ) : null),
-      isConnector: false,
+      isConnector: true,
     },
+    {
+      icon: ClipboardCheck,
+      title: "4. Monitor and Follow-up Agent",
+      description: "A second autonomous agent monitors the status of the created action items, sending reminders and escalating if necessary to ensure timely completion.",
+      content: state.result ? (
+        <p className="text-sm text-muted-foreground text-center">Monitoring agent is now tracking the action items to ensure completion.</p>
+      ) : null,
+      isConnector: false,
+    }
   ];
 
   return (
