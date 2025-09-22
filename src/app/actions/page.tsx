@@ -15,19 +15,30 @@ export default function ActionsPage({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   let actionItems: ActionItem[] = [...initialActionItems];
-  if (searchParams?.newActionItem) {
+
+  const newActionItemParam = searchParams?.newActionItem;
+
+  if (newActionItemParam) {
     try {
-      const newItem = JSON.parse(
-        Array.isArray(searchParams.newActionItem)
-          ? searchParams.newActionItem[0]
-          : searchParams.newActionItem
-      );
-      // Add the new item to the beginning of the array
-      actionItems.unshift(newItem);
+      // The parameter might be an array if it appears multiple times, so we take the first element.
+      const jsonString = Array.isArray(newActionItemParam)
+        ? newActionItemParam[0]
+        : newActionItemParam;
+      
+      const newItem = JSON.parse(jsonString);
+
+      // Validate that the new item has the required properties of an ActionItem
+      if (newItem && newItem.id && newItem.description && newItem.assignedTo && newItem.dueDate && newItem.status) {
+        // Add the new item to the beginning of the array so it appears at the top of the table.
+        actionItems.unshift(newItem as ActionItem);
+      } else {
+        console.error("Parsed action item is missing required properties.");
+      }
     } catch (e) {
-      console.error("Failed to parse new action item from URL", e);
+      console.error("Failed to parse new action item from URL search parameter:", e);
     }
   }
+
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
       <div className="flex items-center justify-between space-y-2">
