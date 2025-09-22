@@ -65,9 +65,9 @@ const prompt = ai.definePrompt({
   Set reasonable values for the other fields.
 
   If the risk score is 75 or above, or the determination result is "Full Review Required", then set the isHighRisk boolean to true.
-  If isHighRisk is true, you MUST use the createActionItemTool to create a high-priority action item for the compliance team and the generateReviewDocumentTool to generate a draft formal review document. The description for these actions must be specific to the use case. For example, if the use case is about a "Customer Support Chatbot", the action item description should be "Create high-priority action to review Customer Support Chatbot arrangement." and the review document should be for "Customer Support Chatbot". When creating an action item, assign it to 'Jane Doe (Compliance Lead)'.
+  If isHighRisk is true, you MUST use the createActionItemTool to create a high-priority action item for the compliance team and the generateReviewDocumentTool to generate a draft formal review document. The description for these actions must be specific to the use case. For example, if the use case is about a "Customer Support Chatbot", the action item description should be "Review Customer Support Chatbot arrangement." and the review document should be for "Customer Support Chatbot". When creating an action item, assign it to 'Jane Doe (Compliance Lead)'.
   
-  Record the actions you've taken in the agentActions field. The actions should be specific and descriptive. For example: "Created high-priority action item for Jane Doe (Compliance Lead) to review 'Customer Support Chatbot' arrangement" or "Generated draft formal review document for 'Customer Support Chatbot'".
+  Record the actions you've taken in the agentActions field. The actions should be specific and descriptive. For example: "Created high-priority action item for Jane Doe (Compliance Lead) to review 'Customer Support Chatbot' arrangement, due on YYYY-MM-DD" or "Generated draft formal review document for 'Customer Support Chatbot'".
 
   Ensure that the output is valid JSON matching the schema.`,
 });
