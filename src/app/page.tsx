@@ -50,7 +50,9 @@ export default function DashboardPage() {
             <AlertTriangle className="h-4 w-4 text-destructive" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{highRiskAssessments}</div>
+            <Link href="/assessment">
+              <div className="text-2xl font-bold hover:underline">{highRiskAssessments}</div>
+            </Link>
             <p className="text-xs text-muted-foreground">
               Requiring immediate attention
             </p>
@@ -64,7 +66,9 @@ export default function DashboardPage() {
             <ClipboardList className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{openActionItems}</div>
+             <Link href="/actions">
+              <div className="text-2xl font-bold hover:underline">{openActionItems}</div>
+            </Link>
             <p className="text-xs text-muted-foreground">
               Pending completion
             </p>
@@ -76,7 +80,9 @@ export default function DashboardPage() {
             <Gauge className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{slaBreaches}</div>
+            <Link href="/sla">
+              <div className="text-2xl font-bold hover:underline">{slaBreaches}</div>
+            </Link>
             <p className="text-xs text-muted-foreground">
               Across all service providers
             </p>
