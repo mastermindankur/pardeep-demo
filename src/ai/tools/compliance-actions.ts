@@ -21,7 +21,7 @@ export const createActionItemTool = ai.defineTool(
       description: 'Creates a new action item in the action tracker for the compliance team. Returns the created item.',
       inputSchema: z.object({
         description: z.string().describe('A detailed description of the action item.'),
-        assignedTo: z.string().default('Compliance Team').describe('The team or person this action is assigned to.'),
+        assignedTo: z.string().describe('The team or person this action is assigned to.'),
         priority: z.enum(['High', 'Medium', 'Low']).default('High').describe('The priority of the action item.'),
       }),
       outputSchema: z.object({
@@ -57,7 +57,6 @@ export const generateReviewDocumentTool = ai.defineTool(
       description: 'Generates a draft document for formal review of a high-risk outsourcing arrangement. Returns the created document.',
       inputSchema: z.object({
         useCase: z.string().describe('The name of the use case or service being reviewed, e.g., "Customer Support Chatbot".'),
-        riskScore: z.number().describe('The overall risk score of the assessment.'),
       }),
       outputSchema: z.object({
         id: z.string(),
