@@ -1,3 +1,4 @@
+
 "use server";
 
 import { assessOutsourcingRisk, AssessOutsourcingRiskOutput } from "@/ai/flows/assess-outsourcing-risk";
@@ -30,19 +31,20 @@ export async function assessOutsourcingRiskAction(
     // Genkit flows with tools can 'throw' an object containing the final output and tool outputs.
     // We check for this case to handle the results of the agent's actions.
     const finalOutput = e.output;
-    const toolOutputs = e.toolOutputs;
+    // The actual tool call results are in e.toolCalls
+    const toolCalls = e.toolCalls;
     
-    if (finalOutput && toolOutputs && Array.isArray(toolOutputs)) {
+    if (finalOutput && toolCalls && Array.isArray(toolCalls)) {
         let newActionItem: ActionItem | undefined = undefined;
         let newDocument: Document | undefined = undefined;
 
-        for (const output of toolOutputs) {
-            if (output.toolName === 'createActionItemTool') {
-                newActionItem = output.output as ActionItem;
+        for (const call of toolCalls) {
+            if (call.toolName === 'createActionItemTool') {
+                newActionItem = call.output as ActionItem;
                 console.log('Found new action item from tool:', newActionItem);
             }
-            if (output.toolName === 'generateReviewDocumentTool') {
-                newDocument = output.output as Document;
+            if (call.toolName === 'generateReviewDocumentTool') {
+                newDocument = call.output as Document;
                 console.log('Found new document from tool:', newDocument);
             }
         }
