@@ -7,6 +7,7 @@ import { AssessmentForm } from "./components/assessment-form";
 import { RiskAnalysisResults } from "./components/risk-analysis-results";
 import { AgentActionResults } from "./components/agent-action-results";
 import { ReviewAndNextSteps } from "./components/review-next-steps";
+import { MonitoringAgentView } from "./components/monitoring-agent-view";
 import { assessOutsourcingRiskAction } from "./actions";
 import type { AssessOutsourcingRiskOutput } from "@/ai/flows/assess-outsourcing-risk";
 import { User, Bot, Eye, ClipboardCheck } from "lucide-react";
@@ -65,8 +66,8 @@ export default function AssessmentPage() {
       icon: ClipboardCheck,
       title: "4. Monitor and Follow-up Agent",
       description: "A second autonomous agent monitors the status of the created action items, sending reminders and escalating if necessary to ensure timely completion.",
-      content: state.result ? (
-        <p className="text-sm text-muted-foreground text-center">Monitoring agent is now tracking the action items to ensure completion.</p>
+      content: state.result && state.newActionItem ? (
+        <MonitoringAgentView actionItem={state.newActionItem} />
       ) : null,
       isConnector: false,
     }
