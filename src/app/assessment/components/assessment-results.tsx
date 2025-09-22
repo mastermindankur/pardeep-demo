@@ -9,9 +9,18 @@ import { AlertTriangle, CheckCircle, FileText, Sparkles, Bot } from "lucide-reac
 
 interface AssessmentResultsProps {
   result?: AssessOutsourcingRiskOutput;
+  isPending: boolean;
 }
 
-export function AssessmentResults({ result }: AssessmentResultsProps) {
+export function AssessmentResults({ result, isPending }: AssessmentResultsProps) {
+  if (isPending && !result) {
+    return (
+      <div className="flex justify-center items-center p-4">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+  
   if (!result) {
     return (
       <div className="text-center text-muted-foreground p-8 border-dashed border-2 rounded-lg w-full">

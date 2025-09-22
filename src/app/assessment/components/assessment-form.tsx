@@ -1,7 +1,6 @@
 
 "use client";
 
-import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -10,13 +9,13 @@ import { Sparkles, AlertCircle } from "lucide-react";
 interface AssessmentFormProps {
   formAction: (payload: FormData) => void;
   error?: string;
+  isPending: boolean;
 }
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
+function SubmitButton({ isPending }: { isPending: boolean }) {
   return (
-    <Button type="submit" disabled={pending} className="w-full">
-      {pending ? (
+    <Button type="submit" disabled={isPending} className="w-full">
+      {isPending ? (
         "Agent is Working..."
       ) : (
         <>
@@ -28,7 +27,7 @@ function SubmitButton() {
   );
 }
 
-export function AssessmentForm({ formAction, error }: AssessmentFormProps) {
+export function AssessmentForm({ formAction, error, isPending }: AssessmentFormProps) {
   return (
     <form action={formAction} className="space-y-4 w-full">
       <Textarea
@@ -43,7 +42,7 @@ export function AssessmentForm({ formAction, error }: AssessmentFormProps) {
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
-      <SubmitButton />
+      <SubmitButton isPending={isPending} />
     </form>
   );
 }

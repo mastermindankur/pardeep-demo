@@ -17,34 +17,44 @@ type State = {
 
 const initialState: State = {};
 
+function LoadingSpinner() {
+  return (
+    <div className="flex justify-center items-center p-4">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+    </div>
+  );
+}
+
 export default function AssessmentPage() {
-  const [state, formAction] = useActionState(assessOutsourcingRiskAction, initialState);
+  const [state, formAction, isPending] = useActionState(assessOutsourcingRiskAction, initialState);
 
   const workflowSteps = [
     {
       icon: User,
       title: "1. Delegate Task to Agent",
       description: "Provide the agent with the details of the outsourcing arrangement. This is the only manual step in the process.",
-      content: <AssessmentForm formAction={formAction} error={state?.error} />,
+      content: <AssessmentForm formAction={formAction} error={state?.error} isPending={isPending} />,
       isConnector: true,
     },
     {
       icon: Bot,
       title: "Agent Analyzes Risk",
       description: "The agent autonomously performs a comprehensive risk assessment, quantifying operational, compliance, data, and regulatory risks.",
+      content: isPending && !state.result ? <LoadingSpinner /> : null,
       isConnector: true,
     },
     {
       icon: ClipboardCheck,
       title: "Agent Takes Action",
       description: "If high-risk is detected, the agent automatically creates action items and generates draft review documents, ensuring compliance.",
+      content: isPending && !state.result ? <LoadingSpinner /> : null,
       isConnector: true,
     },
     {
       icon: Eye,
       title: "2. Review Agent's Work",
       description: "The agent's complete analysis and all automated actions are presented for your review. Your role is simply to oversee the completed work.",
-      content: <AssessmentResults result={state?.result} />,
+      content: <AssessmentResults result={state?.result} isPending={isPending} />,
       isConnector: false,
     },
   ];
@@ -56,7 +66,7 @@ export default function AssessmentPage() {
           Autonomous Risk Assessment Agent
         </h1>
       </div>
-      <p className="text-muted-foreground max-w-none">
+      <p className="text-muted-foreground">
         Delegate your complex outsourcing risk assessments to an autonomous AI agent. Simply provide the details of an outsourcing arrangement, and the agent will execute a comprehensive, multi-step workflow. It analyzes the use case, quantifies risks, determines the necessary level of review, and takes proactive compliance actions—all while providing a transparent audit trail for executive oversight. This is agentic AI in action: from analysis to action, completely autonomously.
       </p>
 
@@ -75,7 +85,7 @@ export default function AssessmentPage() {
                   <CardTitle>{step.title}</CardTitle>
                   <CardDescription>{step.description}</CardDescription>
                 </CardHeader>
-                {step.content && (
+                {(step.content) && (
                   <CardContent className="flex-1 flex items-center justify-center">
                     {step.content}
                   </CardContent>
