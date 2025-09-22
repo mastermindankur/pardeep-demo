@@ -37,21 +37,21 @@ export default function AssessmentPage() {
   const workflowSteps = [
     {
       icon: User,
-      title: "1. Risk Assessment Agent",
+      title: "1. Delegate to Agent",
       description: "Provide the agent with the details of the outsourcing arrangement. This is the only manual step in the process.",
       content: <AssessmentForm formAction={formAction} error={state?.error} isPending={isPending} />,
       isConnector: true,
     },
     {
       icon: Bot,
-      title: "2. Risk Assessment Agent Output",
-      description: "The agent is autonomously performing a comprehensive risk assessment, taking actions, and preparing a report for your review.",
-      content: isPending && !state.result ? <LoadingSpinner /> : (state.result ? <p className="text-sm text-muted-foreground">Risk Assessment Completed.</p> : <p className="text-sm text-muted-foreground">Awaiting delegation...</p>),
+      title: "2. Agent's Autonomous Workflow",
+      description: "The agent is now working autonomously. It's performing a risk assessment, taking actions, and preparing a report for your review.",
+      content: isPending && !state.result ? <LoadingSpinner /> : (state.result ? <p className="text-sm text-muted-foreground">Workflow Completed.</p> : <p className="text-sm text-muted-foreground">Awaiting delegation...</p>),
       isConnector: true,
     },
     {
       icon: Eye,
-      title: "3. Review Agent's Complete Output",
+      title: "3. Review Agent's Completed Work",
       description: "The agent's complete analysis and all automated actions are presented for your review. Your role is to simply oversee the completed work.",
       content: isPending && !state.result ? <LoadingSpinner /> : (state.result ? (
         <div className="space-y-4 w-full">
