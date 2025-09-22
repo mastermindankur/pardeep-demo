@@ -25,7 +25,7 @@ export default function AssessmentPage() {
           Autonomous Risk Assessment Agent
         </h1>
       </div>
-      <p className="text-muted-foreground max-w-4xl">
+      <p className="text-muted-foreground">
         Delegate your complex outsourcing risk assessments to an autonomous AI agent. Simply provide the details of an outsourcing arrangement, and the agent will execute a comprehensive, multi-step workflow. It analyzes the use case, quantifies risks, determines the necessary level of review, and takes proactive compliance actions—all while providing a transparent audit trail for executive oversight. This is agentic AI in action: from analysis to action, completely autonomously.
       </p>
 
