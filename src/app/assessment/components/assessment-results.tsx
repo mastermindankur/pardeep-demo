@@ -1,3 +1,4 @@
+
 "use client";
 
 import type { AssessOutsourcingRiskOutput } from "@/ai/flows/assess-outsourcing-risk";
@@ -13,9 +14,9 @@ interface AssessmentResultsProps {
 export function AssessmentResults({ result }: AssessmentResultsProps) {
   if (!result) {
     return (
-      <div className="text-center text-muted-foreground">
+      <div className="text-center text-muted-foreground p-8 border-dashed border-2 rounded-lg w-full">
         <Sparkles className="mx-auto h-12 w-12" />
-        <p>Your assessment results will appear here.</p>
+        <p>The agent's analysis and actions will appear here once the task is delegated.</p>
       </div>
     );
   }

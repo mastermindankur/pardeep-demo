@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useFormStatus } from "react-dom";
@@ -16,11 +17,11 @@ function SubmitButton() {
   return (
     <Button type="submit" disabled={pending} className="w-full">
       {pending ? (
-        "Assessing..."
+        "Agent is Working..."
       ) : (
         <>
           <Sparkles className="mr-2 h-4 w-4" />
-          Assess Risk
+          Delegate to Agent
         </>
       )}
     </Button>
@@ -29,11 +30,11 @@ function SubmitButton() {
 
 export function AssessmentForm({ formAction, error }: AssessmentFormProps) {
   return (
-    <form action={formAction} className="space-y-4">
+    <form action={formAction} className="space-y-4 w-full">
       <Textarea
         name="useCaseDetails"
         placeholder="e.g., We are outsourcing our customer support to 'HelpDeskPro' in the Philippines. They will access customer PII like names, emails, and purchase history to handle support tickets via email and chat."
-        className="min-h-[200px]"
+        className="min-h-[150px]"
         required
       />
       {error && (
