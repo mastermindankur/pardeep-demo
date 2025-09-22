@@ -27,4 +27,42 @@ To get started with the application, explore the different sections using the si
 4.  **Action Tracker:** See all open and closed action items.
 5.  **Documents:** Manage your compliance-related documents.
 
-To run this project locally, take a look at `src/app/page.tsx`.
+## Local Development
+
+To run this project locally, you will need to have Node.js and npm installed.
+
+1.  **Clone the repository:**
+    ```bash
+    git clone <your-repository-url>
+    cd <your-repository-directory>
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Set up environment variables:**
+    Create a `.env` file in the root of your project and add your Gemini API key:
+    ```
+    GEMINI_API_KEY=your_api_key_here
+    ```
+
+4.  **Run the development server:**
+    The application runs two processes: the Next.js frontend and the Genkit AI flows.
+
+    In one terminal, start the Next.js development server:
+    ```bash
+    npm run dev
+    ```
+    This will start the web application on [http://localhost:9002](http://localhost:9002).
+
+    In a second terminal, start the Genkit development server:
+    ```bash
+    npm run genkit:watch
+    ```
+    This will start the AI flows and make them available to the application. It will also auto-reload on changes.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE.md file for details.
