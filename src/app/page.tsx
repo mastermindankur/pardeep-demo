@@ -81,7 +81,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <Link href="/sla">
-              <div className="text-2xl font-bold hover:underline">{slaBreaches}</div>
+              <div className="text-2xl font-bold text-destructive hover:underline">{slaBreaches}</div>
             </Link>
             <p className="text-xs text-muted-foreground">
               Across all service providers
