@@ -81,7 +81,7 @@ export default function AssessmentPage() {
         </h1>
       </div>
       <p className="text-muted-foreground">
-        This page showcases two autonomous AI agents working in tandem. First, delegate your outsourcing risk assessment to the Risk Assessment Agent. It will analyze the arrangement, quantify risks, determine the review level, and autonomously perform compliance actions. Then, a second Monitoring Agent takes over, tracking any created action items to ensure completion. This is agentic AI in action: from analysis to action to follow-up, all with your oversight.
+        This page showcases two autonomous AI agents working in tandem. First, delegate your outsourcing risk assessment to the Risk Assessment Agent. It will analyze the arrangement, quantify risks, determine the review level, and autonomously creates compliance actions. Then, a second Monitoring Agent takes over, tracking any created action items to ensure completion. This is agentic AI in action: from analysis to action to follow-up, all with your oversight.
       </p>
 
       <div className="mt-8">
