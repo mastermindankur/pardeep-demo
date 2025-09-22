@@ -30,6 +30,7 @@ export const createActionItemTool = ai.defineTool(
         assignedTo: z.string(),
         dueDate: z.string(),
         status: z.enum(['Open', 'In Progress', 'Closed']),
+        priority: z.enum(['High', 'Medium', 'Low']),
       }),
     },
     async (input) => {
@@ -42,6 +43,7 @@ export const createActionItemTool = ai.defineTool(
           assignedTo: input.assignedTo,
           dueDate: format(dueDate, 'yyyy-MM-dd'),
           status: 'Open' as const,
+          priority: input.priority,
         };
         
         console.log('Created new action item:', newItem);
