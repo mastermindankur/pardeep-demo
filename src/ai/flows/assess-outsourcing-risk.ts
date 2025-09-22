@@ -10,7 +10,7 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-import { complianceActionsTool } from '../tools/compliance-actions';
+import { createActionItemTool, generateReviewDocumentTool } from '../tools/compliance-actions';
 
 const AssessOutsourcingRiskInputSchema = z.object({
   useCaseDetails: z
@@ -48,7 +48,7 @@ const prompt = ai.definePrompt({
   name: 'assessOutsourcingRiskPrompt',
   input: {schema: AssessOutsourcingRiskInputSchema},
   output: {schema: AssessOutsourcingRiskOutputSchema},
-  tools: [complianceActionsTool],
+  tools: [createActionItemTool, generateReviewDocumentTool],
   prompt: `You are an expert in outsourcing risk and compliance management. Analyze the provided outsourcing use case details to determine if it qualifies for the simplified outsourcing determination process and perform an AI-driven risk assessment considering operational, compliance, data, and regulatory risks.
 
   Provide a determination result, overall risk score, risk breakdown, and recommended next steps.
@@ -65,7 +65,7 @@ const prompt = ai.definePrompt({
   Set reasonable values for the other fields.
 
   If the risk score is 75 or above, or the determination result is "Full Review Required", then set the isHighRisk boolean to true.
-  If isHighRisk is true, you MUST use the complianceActionsTool to create a high-priority action item for the compliance team and generate a draft formal review document.
+  If isHighRisk is true, you MUST use the createActionItemTool to create a high-priority action item for the compliance team and the generateReviewDocumentTool to generate a draft formal review document.
   
   Record the actions you've taken in the agentActions field. For example: "Created high-priority action item" or "Generated formal review document".
 
