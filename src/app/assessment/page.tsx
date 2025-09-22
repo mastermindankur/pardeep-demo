@@ -43,7 +43,7 @@ export default function AssessmentPage() {
     },
     {
       icon: Bot,
-      title: "2. Agent is Working...",
+      title: "2. Risk Assessment Agent is Working...",
       description: "The agent is autonomously performing a comprehensive risk assessment, taking actions, and preparing a report for your review.",
       content: isPending && !state.result ? <LoadingSpinner /> : (state.result ? <p className="text-sm text-muted-foreground">Risk Assessment Completed.</p> : <p className="text-sm text-muted-foreground">Awaiting delegation...</p>),
       isConnector: true,
