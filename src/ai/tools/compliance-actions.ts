@@ -11,6 +11,7 @@ import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 import { format } from 'date-fns';
 import { actionItems, documents } from '@/lib/data';
+import type { ActionItem, Document } from '@/lib/types';
 
 // In a real application, these functions would interact with a database or external services.
 // For this demo, we'll just modify the in-memory data arrays.
@@ -30,24 +31,26 @@ export const createActionItemTool = ai.defineTool(
         assignedTo: z.string(),
         dueDate: z.string(),
         status: z.enum(['Open', 'In Progress', 'Closed']),
-        priority: z.enum(['High', 'Medium', 'Low']),
       }),
     },
-    async (input) => {
+    async (input): Promise<Omit<ActionItem, 'priority'>> => {
         const dueDate = new Date();
         dueDate.setDate(dueDate.getDate() + 7); // Due in 7 days
       
-        const newItem = {
+        const newItem: ActionItem = {
           id: `act-${actionItems.length + 1 + Math.floor(Math.random() * 1000)}`,
           description: `(${input.priority} Priority) ${input.description}`,
           assignedTo: input.assignedTo,
           dueDate: format(dueDate, 'yyyy-MM-dd'),
           status: 'Open' as const,
-          priority: input.priority,
         };
         
         console.log('Created new action item:', newItem);
-        return newItem;
+        
+        // The type definition for ActionItem in types.ts does not have a priority field.
+        // We return an object that matches the ActionItem type.
+        const { priority, ...returnItem } = newItem;
+        return returnItem;
     }
   );
   
@@ -66,8 +69,8 @@ export const generateReviewDocumentTool = ai.defineTool(
         lastModified: z.string(),
       }),
     },
-    async (input) => {
-        const newDoc = {
+    async (input) : Promise<Document> => {
+        const newDoc: Document = {
             id: `doc-${documents.length + 1 + Math.floor(Math.random() * 1000)}`,
             name: `[DRAFT] Formal_Review_${input.useCase.replace(/\s/g, '_')}.docx`,
             type: 'DOCX',
