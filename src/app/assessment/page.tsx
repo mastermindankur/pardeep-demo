@@ -9,7 +9,7 @@ import { AgentActionResults } from "./components/agent-action-results";
 import { ReviewAndNextSteps } from "./components/review-next-steps";
 import { assessOutsourcingRiskAction } from "./actions";
 import type { AssessOutsourcingRiskOutput } from "@/ai/flows/assess-outsourcing-risk";
-import { User, Bot, ClipboardCheck, Eye } from "lucide-react";
+import { User, Bot, Eye } from "lucide-react";
 import type { ActionItem, Document } from "@/lib/types";
 
 type State = {
@@ -43,23 +43,22 @@ export default function AssessmentPage() {
     },
     {
       icon: Bot,
-      title: "2. Agent Analyzes Risk",
-      description: "The agent autonomously performs a comprehensive risk assessment, quantifying operational, compliance, data, and regulatory risks.",
-      content: isPending && !state.result ? <LoadingSpinner /> : (state.result ? <RiskAnalysisResults result={state.result} /> : null),
-      isConnector: true,
-    },
-    {
-      icon: ClipboardCheck,
-      title: "3. Agent Takes Action",
-      description: "If high-risk is detected, the agent automatically creates action items and generates draft review documents, ensuring compliance.",
-      content: isPending && !state.result ? <LoadingSpinner /> : (state.result ? <AgentActionResults result={state.result} /> : null),
+      title: "2. Agent is Working...",
+      description: "The agent is autonomously performing a comprehensive risk assessment, taking actions, and preparing a report for your review.",
+      content: isPending && !state.result ? <LoadingSpinner /> : (state.result ? <p className="text-sm text-muted-foreground">Completed.</p> : <p className="text-sm text-muted-foreground">Awaiting delegation...</p>),
       isConnector: true,
     },
     {
       icon: Eye,
-      title: "4. Review Agent's Work and Action Items",
+      title: "3. Review Agent's Complete Output",
       description: "The agent's complete analysis and all automated actions are presented for your review. Your role is to simply oversee the completed work.",
-      content: isPending && !state.result ? <LoadingSpinner /> : (state.result ? <ReviewAndNextSteps result={state.result} newActionItem={state.newActionItem} newDocument={state.newDocument} />: null),
+      content: isPending && !state.result ? <LoadingSpinner /> : (state.result ? (
+        <div className="space-y-4 w-full">
+            <RiskAnalysisResults result={state.result} />
+            <AgentActionResults result={state.result} />
+            <ReviewAndNextSteps result={state.result} newActionItem={state.newActionItem} newDocument={state.newDocument} />
+        </div>
+      ) : null),
       isConnector: false,
     },
   ];
@@ -71,7 +70,7 @@ export default function AssessmentPage() {
           Autonomous Risk Assessment Agent
         </h1>
       </div>
-      <p className="text-muted-foreground max-w-none">
+      <p className="text-muted-foreground">
         Delegate your complex outsourcing risk assessments to an autonomous AI agent. Simply provide the details of an outsourcing arrangement, and the agent will execute a comprehensive, multi-step workflow. It analyzes the use case, quantifies risks, determines the necessary level of review, and takes proactive compliance actions—all while providing a transparent audit trail for executive oversight. This is agentic AI in action: from analysis to action, completely autonomously.
       </p>
 
