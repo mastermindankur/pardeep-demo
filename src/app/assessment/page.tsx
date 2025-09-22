@@ -99,7 +99,7 @@ export default function AssessmentPage() {
                   <CardTitle>{step.title}</CardTitle>
                   <CardDescription>{step.description}</CardDescription>
                 </CardHeader>
-                {(step.content) && (
+                {step.content && (
                   <CardContent className="flex-1 flex items-center justify-center">
                     {step.content}
                   </CardContent>
