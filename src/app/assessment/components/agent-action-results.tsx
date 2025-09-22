@@ -25,14 +25,14 @@ export function AgentActionResults({ result }: AgentActionResultsProps) {
           <CardHeader>
             <CardTitle className="text-sm font-medium flex items-center gap-2">
               <Bot className="h-4 w-4" />
-              Automated Agent Actions
+              Action Items created and assigned
             </CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-2 text-sm text-muted-foreground">
               {result.agentActions.map((action, index) => (
-                <li key={index} className="flex items-center gap-2">
-                  <CheckCircle className="h-4 w-4 text-green-600" />
+                <li key={index} className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 shrink-0" />
                   <span>{action}</span>
                 </li>
               ))}
