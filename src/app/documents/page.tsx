@@ -9,13 +9,14 @@ import { Button } from "@/components/ui/button";
 import { UploadCloud } from "lucide-react";
 import { DocumentsTable } from "./components/documents-table";
 import { documents as initialDocuments } from "@/lib/data";
+import type { Document } from "@/lib/types";
 
 export default function DocumentsPage({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  let documents = [...initialDocuments];
+  let documents: Document[] = [...initialDocuments];
   if (searchParams?.newDocument) {
     try {
       const newDoc = JSON.parse(
@@ -23,6 +24,7 @@ export default function DocumentsPage({
           ? searchParams.newDocument[0]
           : searchParams.newDocument
       );
+      // Add the new document to the beginning of the array
       documents.unshift(newDoc);
     } catch (e) {
       console.error("Failed to parse new document from URL", e);

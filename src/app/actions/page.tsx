@@ -7,13 +7,14 @@ import {
 } from "@/components/ui/card";
 import { ActionsTable } from "./components/actions-table";
 import { actionItems as initialActionItems } from "@/lib/data";
+import type { ActionItem } from "@/lib/types";
 
 export default function ActionsPage({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  let actionItems = [...initialActionItems];
+  let actionItems: ActionItem[] = [...initialActionItems];
   if (searchParams?.newActionItem) {
     try {
       const newItem = JSON.parse(
@@ -21,6 +22,7 @@ export default function ActionsPage({
           ? searchParams.newActionItem[0]
           : searchParams.newActionItem
       );
+      // Add the new item to the beginning of the array
       actionItems.unshift(newItem);
     } catch (e) {
       console.error("Failed to parse new action item from URL", e);

@@ -22,31 +22,20 @@ export async function assessOutsourcingRiskAction(
 
   try {
     const result = await assessOutsourcingRisk({ useCaseDetails });
-    
-    // This is a simplified way to handle tool outputs for the demo.
-    // In a real app, you'd have a more robust way to inspect tool calls and their results.
-    const agentActions = result.agentActions || [];
-    let newActionItem: ActionItem | undefined = undefined;
-    let newDocument: Document | undefined = undefined;
-
-    if (agentActions.find(a => a.includes("Created high-priority action item"))) {
-        // This is a mock-up. In a real scenario, the tool output would be captured and processed.
-        // For the demo, we are faking the object creation. The tool *is* returning it,
-        // but we are not capturing it in this server action to keep it simple.
-    }
-    if (agentActions.find(a => a.includes("Generated formal review document"))) {
-        // This is a mock-up.
-    }
-
+    // This path is taken when the agent does NOT use tools.
     return { result };
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
-    // Check if the error is from Genkit and has tool outputs
-    if (e.toolOutputs && Array.isArray(e.toolOutputs)) {
+    // Genkit flows with tools can 'throw' an object containing tool outputs.
+    // We check for this case to handle the results of the agent's actions.
+    const toolOutputs = e.toolOutputs;
+    const finalOutput = e.output;
+
+    if (finalOutput && toolOutputs && Array.isArray(toolOutputs)) {
         let newActionItem: ActionItem | undefined = undefined;
         let newDocument: Document | undefined = undefined;
 
-        for (const output of e.toolOutputs) {
+        for (const output of toolOutputs) {
             if (output.toolName === 'createActionItemTool') {
                 newActionItem = output.output as ActionItem;
             }
@@ -56,9 +45,8 @@ export async function assessOutsourcingRiskAction(
         }
 
         if (newActionItem || newDocument) {
-            // The flow 'errored' to return tool results. We can treat this as a success for the UI.
-            const result = e.output;
-            return { result, newActionItem, newDocument };
+            // The flow 'errored' to return tool results. We treat this as a success for the UI.
+            return { result: finalOutput, newActionItem, newDocument };
         }
     }
     return { error: "An unexpected error occurred while assessing the risk. Please try again later." };
