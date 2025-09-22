@@ -32,7 +32,7 @@ export function AssessmentForm({ formAction, error }: AssessmentFormProps) {
     <form action={formAction} className="space-y-4">
       <Textarea
         name="useCaseDetails"
-        placeholder="e.g., Outsourcing customer data analysis to a third-party vendor based in the EU. The data includes PII such as names, email addresses, and purchase history..."
+        placeholder="e.g., We are outsourcing our customer support to 'HelpDeskPro' in the Philippines. They will access customer PII like names, emails, and purchase history to handle support tickets via email and chat."
         className="min-h-[200px]"
         required
       />
